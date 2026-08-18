@@ -1,4 +1,34 @@
-# Logs
+# --- Dependencies -----------------------------------------------------------
+node_modules
+.pnpm-store/
+.yarn/
+
+# --- Build output -----------------------------------------------------------
+dist
+dist-ssr
+*.local
+
+# Generated stylesheet. `src/index.css` is compiled from `src/tailwind.css` by
+# the tailwind CLI (see the `tailwind:build` / `tailwind:watch` scripts), so it
+# is build output, not source. Both `npm run dev` and `npm run build` recreate
+# it. Edit `src/tailwind.css` instead.
+# Delete this line if you would rather commit the compiled CSS.
+src/index.css
+
+# --- Caches -----------------------------------------------------------------
+.vite/
+node_modules/.vite
+.eslintcache
+*.tsbuildinfo
+coverage/
+
+# --- Environment / secrets --------------------------------------------------
+# EmailJS service, template and public keys belong here, never in the repo.
+.env
+.env.*
+!.env.example
+
+# --- Logs -------------------------------------------------------------------
 logs
 *.log
 npm-debug.log*
@@ -7,18 +37,23 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# --- Deploy providers -------------------------------------------------------
+.vercel
+.netlify
 
-# Editor directories and files
+# --- Editors ----------------------------------------------------------------
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
+.history/
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# --- OS ---------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
