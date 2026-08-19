@@ -35,6 +35,9 @@ export default function Lanyard({
   frontImage = '',
   backImage = null,
   imageFit = 'cover',
+  // Back face fit, independent of the front: the two images rarely share an
+  // aspect ratio. Falls back to imageFit when not given.
+  backImageFit = null,
   lanyardImage = null,
   lanyardWidth = 1,
   // Height of the fixed point the strap hangs from. The card settles ~4.5 units
@@ -85,6 +88,7 @@ export default function Lanyard({
             frontImage={frontImage}
             backImage={backImage}
             imageFit={imageFit}
+            backImageFit={backImageFit}
             lanyardImage={lanyardImage}
             lanyardWidth={lanyardWidth}
             anchorY={anchorY}
@@ -161,6 +165,9 @@ function Band({
   frontImage = null,
   backImage = null,
   imageFit = 'cover',
+  // Back face fit, independent of the front: the two images rarely share an
+  // aspect ratio. Falls back to imageFit when not given.
+  backImageFit = null,
   lanyardImage = null,
   lanyardWidth = 1,
   anchorY = 4,
@@ -202,12 +209,12 @@ function Band({
     // Keep the original baked atlas for the card edges and any untouched face.
     ctx.drawImage(baseImg, 0, 0, W, H);
 
-    const drawFitted = (img, rect) => {
+    const drawFitted = (img, rect, fit) => {
       const rx = rect.x * W;
       const ry = rect.y * H;
       const rw = rect.w * W;
       const rh = rect.h * H;
-      const pick = imageFit === 'contain' ? Math.min : Math.max;
+      const pick = fit === 'contain' ? Math.min : Math.max;
       const scale = pick(rw / img.width, rh / img.height);
       const dw = img.width * scale;
       const dh = img.height * scale;
@@ -221,8 +228,8 @@ function Band({
       ctx.restore();
     };
 
-    if (frontImage && frontTex.image) drawFitted(frontTex.image, FRONT_UV_RECT);
-    if (backImage && backTex.image) drawFitted(backTex.image, BACK_UV_RECT);
+    if (frontImage && frontTex.image) drawFitted(frontTex.image, FRONT_UV_RECT, imageFit);
+    if (backImage && backTex.image) drawFitted(backTex.image, BACK_UV_RECT, backImageFit ?? imageFit);
 
     const composite = new THREE.CanvasTexture(canvas);
     composite.colorSpace = THREE.SRGBColorSpace;
@@ -230,7 +237,7 @@ function Band({
     composite.anisotropy = 16;
     composite.needsUpdate = true;
     return composite;
-  }, [frontImage, backImage, imageFit, frontTex, backTex, materials.base.map]);
+  }, [frontImage, backImage, imageFit, backImageFit, frontTex, backTex, materials.base.map]);
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])

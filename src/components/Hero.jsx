@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import StrokeText from "./MainText/MainText";
 import Lanyard from "./Lanyard/Lanyard";
 import cardFront from "./Lanyard/lanyard.png";
+import cardBack from "./Lanyard/images.jpeg";
 import Particles from "./Particles/particles";
 import { styles } from "../style";
 
@@ -142,7 +143,7 @@ const Hero = () => {
 
                             <div className='mt-12 flex flex-wrap items-center gap-8 sm:gap-10'>
                                 <a
-                                    href='#works'
+                                    href='#projects'
                                     className='group flex items-center gap-4 border border-secondary/40 text-white text-[16px] px-8 py-4 rounded-md hover:border-[#a78bfa] hover:text-[#a78bfa] transition-colors'
                                 >
                                     View Projects
@@ -209,6 +210,8 @@ const Hero = () => {
                             // Source is square, the face is ~2:3, so `cover` crops the sides.
                             frontImage={cardFront}
                             imageFit='cover'
+                            backImage={cardBack}
+                            backImageFit='cover'
                             // 12 instead of the stock 30: the card fills roughly half the
                             // frame height rather than a fifth.
                             position={[0, 0, 12]}

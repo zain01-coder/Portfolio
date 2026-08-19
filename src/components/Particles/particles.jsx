@@ -96,7 +96,7 @@ const Particles = ({
   cameraDistance = 20,
   disableRotation = false,
   pixelRatio = 1,
-  className
+  className = ""
 }) => {
   const containerRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
@@ -220,6 +220,12 @@ const Particles = ({
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }
+      // Removing the canvas from the DOM does NOT free its WebGL context.
+      // Without this, every effect re-run (StrictMode's double-invoke, or any
+      // dep change) leaks one, and once the page crosses the browser's ~16
+      // context cap the oldest canvas gets force-killed — which is what was
+      // blanking the hero to white.
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

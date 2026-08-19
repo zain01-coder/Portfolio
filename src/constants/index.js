@@ -97,10 +97,6 @@ const technologies = [
     icon: mongodb,
   },
   {
-    name: "Three JS",
-    icon: threejs,
-  },
-  {
     name: "git",
     icon: git,
   },
@@ -199,6 +195,7 @@ const testimonials = [
 const projects = [
   {
     name: "Car Rent",
+    category: "Full Stack",
     description:
       "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
     tags: [
@@ -217,9 +214,11 @@ const projects = [
     ],
     image: carrent,
     source_code_link: "https://github.com/",
+    live_link: "https://example.com/",
   },
   {
     name: "Job IT",
+    category: "Machine Learning",
     description:
       "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
     tags: [
@@ -238,9 +237,11 @@ const projects = [
     ],
     image: jobit,
     source_code_link: "https://github.com/",
+    live_link: "https://example.com/",
   },
   {
     name: "Trip Guide",
+    category: "Full Stack",
     description:
       "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
     tags: [
